@@ -1,0 +1,49 @@
+.pli-module { --pli-ink:#14213d; --pli-soft:#3b4a63; --pli-muted:#6b7a90; --pli-page:#e9edf3; --pli-card:#fff; --pli-line:#d3dae4; --pli-green:#0f6e56; color:var(--pli-ink); font:15px/1.55 Archivo,system-ui,sans-serif; padding:24px 16px 64px; }
+.pli-module * { box-sizing:border-box; }
+.pli-wrap { max-width:920px; margin:auto; }
+.pli-header { display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap:12px; margin-bottom:20px; }
+.pli-header h1 { font:600 26px/1.2 Archivo,system-ui,sans-serif; margin:0; }
+.pli-sub,.pli-effective,.pli-hint { color:var(--pli-muted); font-size:12px; margin:2px 0 0; }
+.pli-effective { text-align:right; }
+.pli-eyebrow { font-size:11px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--pli-muted); margin:0 0 10px; }
+.pli-strip { background:#14213d; color:#fff; border-radius:10px; padding:20px 22px; margin-bottom:22px; }
+.pli-strip .pli-eyebrow { color:#93a3bc; }
+.pli-chain { display:flex; align-items:stretch; gap:8px; }
+.pli-chain-item { flex:1; display:flex; align-items:center; gap:8px; min-width:0; }
+.pli-term { flex:1; min-width:0; border:1px solid #31435f; border-radius:6px; padding:9px 10px; display:grid; }
+.pli-term span { font-size:10px; letter-spacing:.1em; text-transform:uppercase; color:#93a3bc; }
+.pli-term strong { font:500 17px ui-monospace,monospace; }
+.pli-op { color:#93a3bc; }
+.pli-total { margin-top:14px; padding-top:14px; border-top:1px solid #31435f; display:flex; flex-wrap:wrap; align-items:baseline; gap:12px; }
+.pli-total strong { font:600 40px/1.1 ui-monospace,monospace; }
+.pli-total span { color:#93a3bc; font-size:13px; }
+.pli-notice { border-radius:6px; padding:11px 13px; font-size:13px; margin-bottom:16px; }
+.pli-notice.ok { background:#e3f2ec; color:#0f6e56; border-left:3px solid #0f6e56; }
+.pli-notice.stop { background:#fbecec; color:#b4232a; border-left:3px solid #b4232a; }
+.pli-card { background:var(--pli-card); border:1px solid var(--pli-line); border-radius:10px; padding:18px 20px; margin-bottom:16px; }
+.pli-fields { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:14px; }
+.pli-field { display:grid; gap:5px; color:var(--pli-soft); font-size:12px; font-weight:500; }
+.pli-field input,.pli-field select { width:100%; height:38px; padding:0 10px; border:1px solid #b9c3d1; border-radius:6px; background:#fff; color:var(--pli-ink); }
+.pli-field .current { border:2px solid var(--pli-ink); }
+.pli-points { display:flex; align-items:baseline; gap:8px; margin:14px 0 0; font-size:13px; }
+.pli-points strong { font:600 20px ui-monospace,monospace; }
+.pli-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:16px; }
+.pli-grid .pli-card { margin:0; }
+.pli-card table { width:100%; min-width:0; border-collapse:collapse; font-size:13px; }
+.pli-card td { padding:7px 0; border-bottom:1px solid var(--pli-line); color:var(--pli-soft); }
+.pli-card td:last-child { text-align:right; font-family:ui-monospace,monospace; color:var(--pli-ink); }
+.pli-card tr.total td { font-weight:700; border-top:1px solid #b9c3d1; }
+.pli-split { display:flex; gap:10px; }
+.pli-split>div { flex:1; background:var(--pli-page); border-radius:6px; padding:11px 12px; display:grid; }
+.pli-split span { color:var(--pli-muted); font-size:11px; text-transform:uppercase; }
+.pli-split strong { font:500 18px ui-monospace,monospace; }
+.pli-perks { list-style:none; padding:0; margin:0; }
+.pli-perks li { padding:6px 0 6px 20px; border-bottom:1px solid var(--pli-line); position:relative; }
+.pli-perks li:not(.none)::before { content:''; width:7px; height:7px; border-radius:50%; background:var(--pli-green); position:absolute; left:2px; top:14px; }
+.pli-perks li.none { padding-left:0; color:var(--pli-muted); }
+.pli-bar { height:8px; background:var(--pli-page); border-radius:4px; overflow:hidden; margin:10px 0 8px; }
+.pli-bar span { display:block; height:100%; background:var(--pli-ink); }
+.pli-actions { display:flex; gap:10px; margin-top:20px; }
+.pli-actions button { height:38px; padding:0 16px; background:#fff; border:1px solid #b9c3d1; border-radius:6px; cursor:pointer; }
+@media(max-width:720px){.pli-chain{flex-wrap:wrap}.pli-chain-item{flex:1 1 130px}.pli-chain-item:first-child .pli-op{display:none}}
+@media print {.app-shell-header,.pli-actions{display:none!important}.pli-module{padding:0}.pli-card,.pli-strip{break-inside:avoid}}
