@@ -381,6 +381,10 @@ table tfoot .totals-row td {
   text-transform: uppercase;
   letter-spacing: 0.05em;
   color: var(--muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-wrap: wrap;
 }
 
 .final-total-item .value {
@@ -393,6 +397,106 @@ table tfoot .totals-row td {
 .final-total-item.accent .value {
   font-size: 1.7rem;
   color: var(--accent-deep);
+}
+
+.info-tip {
+  position: relative;
+  display: inline-flex;
+  vertical-align: middle;
+}
+
+.info-tip-btn {
+  width: 1.05rem;
+  height: 1.05rem;
+  border-radius: 999px;
+  border: 1px solid var(--accent);
+  background: var(--panel-strong);
+  color: var(--accent-deep);
+  font-size: 0.68rem;
+  font-weight: 700;
+  font-style: italic;
+  font-family: Georgia, 'Times New Roman', serif;
+  line-height: 1;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: help;
+}
+
+.info-tip-btn:hover,
+.info-tip-btn:focus-visible {
+  background: var(--accent);
+  color: #f4fff9;
+  outline: none;
+}
+
+.info-tip-bubble {
+  display: none;
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 8px);
+  transform: translateX(-50%);
+  width: min(280px, 70vw);
+  padding: 0.65rem 0.75rem;
+  border-radius: 10px;
+  background: #14201a;
+  color: #f4fff9;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+  line-height: 1.45;
+  box-shadow: 0 12px 28px rgba(20, 32, 26, 0.28);
+  z-index: 40;
+  gap: 0.35rem;
+}
+
+.info-tip-bubble strong {
+  display: block;
+  font-size: 0.78rem;
+  color: #9fe0c5;
+  margin-bottom: 0.2rem;
+}
+
+.info-tip-bubble::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: #14201a;
+}
+
+.info-tip:hover .info-tip-bubble,
+.info-tip:focus-within .info-tip-bubble {
+  display: grid;
+}
+
+/* Keep tip on-screen near edges */
+.final-total-item:first-child .info-tip-bubble,
+.final-total-item:nth-child(2) .info-tip-bubble {
+  left: 0;
+  transform: none;
+}
+
+.final-total-item:first-child .info-tip-bubble::after,
+.final-total-item:nth-child(2) .info-tip-bubble::after {
+  left: 12px;
+  transform: none;
+}
+
+.final-total-item:last-child .info-tip-bubble {
+  left: auto;
+  right: 0;
+  transform: none;
+}
+
+.final-total-item:last-child .info-tip-bubble::after {
+  left: auto;
+  right: 12px;
+  transform: none;
 }
 
 th,
@@ -468,6 +572,10 @@ td input[type='checkbox'] {
   color: var(--muted);
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex-wrap: wrap;
 }
 
 .metric .value {

@@ -11,6 +11,25 @@ import { createDefaultState, STORAGE_KEY } from './data/defaults'
 
 const DOC_OPTIONS = Object.keys(DOC_RATING_WEIGHTS) as DocRating[]
 
+function InfoTip({ title, children }: { title: string; children: string }) {
+  return (
+    <span className="info-tip no-print">
+      <button
+        type="button"
+        className="info-tip-btn"
+        aria-label={`Info: ${title}`}
+        title={children}
+      >
+        i
+      </button>
+      <span className="info-tip-bubble" role="tooltip">
+        <strong>{title}</strong>
+        <span>{children}</span>
+      </span>
+    </span>
+  )
+}
+
 function loadState(): AppState {
   try {
     const raw = localStorage.getItem(STORAGE_KEY)
@@ -329,7 +348,13 @@ export default function App() {
             {state.developers.length > 0 && (
               <div className="final-total" style={{ marginTop: '1rem' }}>
                 <div className="final-total-item">
-                  <span className="label">Total days in quarter</span>
+                  <span className="label">
+                    Total days in quarter
+                    <InfoTip title="Total days in quarter">
+                      Sum of each developer’s “Days in quarter” field. Weekends and
+                      company holidays should already be excluded from this number.
+                    </InfoTip>
+                  </span>
                   <span className="value">
                     {formatNumber(
                       state.developers.reduce(
@@ -341,7 +366,13 @@ export default function App() {
                   </span>
                 </div>
                 <div className="final-total-item">
-                  <span className="label">Total leaves</span>
+                  <span className="label">
+                    Total leaves
+                    <InfoTip title="Total leaves">
+                      Sum of all leave days entered for every developer (supports half
+                      days like 0.5).
+                    </InfoTip>
+                  </span>
                   <span className="value">
                     {formatNumber(
                       state.developers.reduce(
@@ -353,13 +384,23 @@ export default function App() {
                   </span>
                 </div>
                 <div className="final-total-item accent">
-                  <span className="label">Final present days</span>
+                  <span className="label">
+                    Final present days
+                    <InfoTip title="Final present days">
+                      {`Present per developer = Days − Leaves. Final present days = sum of all Present values. Example: (66 − 2) + (66 − 3) = 127.`}
+                    </InfoTip>
+                  </span>
                   <span className="value">
                     {formatNumber(scores.totalPresentDays, 1)}
                   </span>
                 </div>
                 <div className="final-total-item">
-                  <span className="label">Total productive hrs</span>
+                  <span className="label">
+                    Total productive hrs
+                    <InfoTip title="Total productive hrs">
+                      {`Per developer: Present × ${HOURS_PER_DAY}. Total productive hrs = sum across the team. Example: 244 present days × ${HOURS_PER_DAY} = ${244 * HOURS_PER_DAY}.`}
+                    </InfoTip>
+                  </span>
                   <span className="value">
                     {formatNumber(scores.actualDevelopmentHours, 1)}
                   </span>
@@ -609,29 +650,55 @@ export default function App() {
             {state.goals.length > 0 && (
               <div className="final-total">
                 <div className="final-total-item">
-                  <span className="label">Total planned hrs</span>
+                  <span className="label">
+                    Total planned hrs
+                    <InfoTip title="Total planned hrs">
+                      Sum of Planned Hrs from every KPI row. This is also called
+                      Projected Hours for the quarter.
+                    </InfoTip>
+                  </span>
                   <span className="value">
                     {formatNumber(scores.projectedHours, 0)}
                   </span>
                 </div>
                 <div className="final-total-item">
-                  <span className="label">Total productive hrs</span>
+                  <span className="label">
+                    Total productive hrs
+                    <InfoTip title="Total productive hrs">
+                      {`From Developers: Σ (Days − Leaves) × ${HOURS_PER_DAY}. Used as the denominator for Achievable and Acquired Score.`}
+                    </InfoTip>
+                  </span>
                   <span className="value">
                     {formatNumber(scores.actualDevelopmentHours, 1)}
                   </span>
                 </div>
                 <div className="final-total-item">
-                  <span className="label">Total achievable</span>
+                  <span className="label">
+                    Total achievable
+                    <InfoTip title="Total achievable">
+                      {`Per KPI: Achievable = ((Planned ÷ Total Productive) × 120) × Deployment %. Deployment = 0% (none), 50% (Staging only), 100% (Staging + Production). Total = sum of all KPI Achievable values.`}
+                    </InfoTip>
+                  </span>
                   <span className="value">
                     {formatNumber(scores.totalAchievablePoints)}
                   </span>
                 </div>
                 <div className="final-total-item">
-                  <span className="label">Acquired score</span>
+                  <span className="label">
+                    Acquired score
+                    <InfoTip title="Acquired score">
+                      {`Formula from the sheet: (Total Planned Hours ÷ Total Productive Hours) × 120. Example with current values: (${formatNumber(scores.projectedHours, 0)} ÷ ${formatNumber(scores.actualDevelopmentHours, 1)}) × 120 = ${formatNumber(scores.acquiredScore)}.`}
+                    </InfoTip>
+                  </span>
                   <span className="value">{formatNumber(scores.acquiredScore)}</span>
                 </div>
                 <div className="final-total-item accent">
-                  <span className="label">Final total (Document)</span>
+                  <span className="label">
+                    Final total (Document)
+                    <InfoTip title="Final total (Document)">
+                      {`Per KPI Document = Achievable × (1 + Doc %). Doc %: Excellent 25%, Good 20%, Satisfactory 15%, Unsatisfactory 10%, Poor 5%, None 0%. Final total = sum of all Document column values.`}
+                    </InfoTip>
+                  </span>
                   <span className="value">
                     {formatNumber(scores.totalAchievedPoints)}
                   </span>
@@ -661,7 +728,12 @@ export default function App() {
 
             <div className="summary-grid">
               <div className="metric">
-                <div className="label">Projected hours</div>
+                <div className="label">
+                  Projected hours
+                  <InfoTip title="Projected hours">
+                    Sum of Planned Hrs from all KPIs. Same as Total planned hrs.
+                  </InfoTip>
+                </div>
                 <div className="value">{formatNumber(scores.projectedHours, 1)}</div>
                 <div className="hint">
                   Total planned hours across all KPIs for the quarter.
@@ -669,7 +741,12 @@ export default function App() {
               </div>
 
               <div className="metric">
-                <div className="label">Actual development hours</div>
+                <div className="label">
+                  Actual development hours
+                  <InfoTip title="Actual development hours">
+                    {`Σ (Days − Leaves) × ${HOURS_PER_DAY} for all developers. Same as Total productive hrs.`}
+                  </InfoTip>
+                </div>
                 <div className="value">
                   {formatNumber(scores.actualDevelopmentHours, 1)}
                 </div>
@@ -679,7 +756,12 @@ export default function App() {
               </div>
 
               <div className="metric accent">
-                <div className="label">Acquired score</div>
+                <div className="label">
+                  Acquired score
+                  <InfoTip title="Acquired score">
+                    {`(Total Planned ÷ Total Productive) × 120 = (${formatNumber(scores.projectedHours, 1)} ÷ ${formatNumber(scores.actualDevelopmentHours, 1)}) × 120 = ${formatNumber(scores.acquiredScore)}.`}
+                  </InfoTip>
+                </div>
                 <div className="value">{formatNumber(scores.acquiredScore)}</div>
                 <div className="hint">
                   (Projected ÷ Actual) × 120 = ({formatNumber(scores.projectedHours, 1)} ÷{' '}
@@ -688,7 +770,13 @@ export default function App() {
               </div>
 
               <div className="metric">
-                <div className="label">Delivery-adjusted score</div>
+                <div className="label">
+                  Delivery-adjusted score
+                  <InfoTip title="Delivery-adjusted score">
+                    Sum of Document column values. Each Document = Achievable × (1 + Doc
+                    %). Same as Final total (Document).
+                  </InfoTip>
+                </div>
                 <div className="value">
                   {formatNumber(scores.deliveryAdjustedScore)}
                 </div>
@@ -706,7 +794,14 @@ export default function App() {
               </div>
 
               <div className="metric">
-                <div className="label">KPI points (document / pool)</div>
+                <div className="label">
+                  KPI points (document / pool)
+                  <InfoTip title="Document / Achievable pool">
+                    Left number = Total Document points. Right number = Total Achievable
+                    points (before Doc %). Document is always ≥ Achievable when Doc % &gt;
+                    0.
+                  </InfoTip>
+                </div>
                 <div className="value">
                   {formatNumber(scores.totalAchievedPoints)}{' '}
                   <span style={{ fontSize: '1rem', color: 'var(--muted)' }}>
